@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сахатеатр — Видео-открытие</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #1C0810;
+    color: #F0E6D8;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
+
+  :root {
+    --bg: #1C0810;
+    --bg-card: #2A0E18;
+    --bg-soft: #220A12;
+    --gold: #C9A227;
+    --gold-light: #E8C96A;
+    --bordo: #8B1A2B;
+    --text: #F0E6D8;
+    --text-muted: #A88A7A;
+    --line: rgba(201,162,39,0.2);
+  }
+
+  /* === ФОН С ПЕРЕЛИВОМ === */
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 20%, rgba(139,26,43,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(201,162,39,0.06) 0%, transparent 50%);
+    pointer-events: none; z-index: -1;
+    animation: bgBreath 15s ease-in-out infinite;
+  }
+  @keyframes bgBreath {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+
+  /* ============================================================
+     ВИДЕО-ОТКРЫТИЕ (как на Odeon)
+     ============================================================ */
+  .video-intro {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .video-intro video {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    object-fit: cover;
+    animation: videoFadeIn 2.5s ease forwards;
+    opacity: 0;
+  }
+  @keyframes videoFadeIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(1.1); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  .video-intro-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(28,8,16,0.5) 0%, rgba(28,8,16,0.3) 50%, rgba(28,8,16,0.85) 100%);
+    z-index: -1;
+  }
+  .video-intro-content {
+    position: relative; z-index: 1;
+    max-width: 900px;
+    padding: 0 40px;
+  }
+  .video-intro-label {
+    font-size: 11px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 1.5s forwards;
+  }
+  .video-intro h1 {
+    font-size: clamp(60px, 10vw, 160px);
+    line-height: 0.95;
+    margin-bottom: 40px;
+    letter-spacing: -2px;
+    font-weight: 400;
+    color: #F0E6D8;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .video-intro h1 .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(60px) rotateX(-90deg);
+    animation: letterIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .video-intro h1 em {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 300;
+  }
+  .video-intro-desc {
+    font-size: 18px;
+    color: rgba(240,230,216,0.85);
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 2.5s forwards;
+  }
+  .video-intro-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 3s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  .video-intro-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: var(--gold);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.3; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes letterIn {
+    from { opacity: 0; transform: translateY(60px) rotateX(-90deg); }
+    to { opacity: 1; transform: translateY(0) rotateX(0); }
+  }
+
+  /* === КНОПКА ЗВУКА === */
+  .sound-toggle {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1000;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: rgba(28,8,16,0.6);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 3.5s forwards;
+  }
+  .sound-toggle:hover {
+    background: var(--gold);
+    color: var(--bg);
+    box-shadow: 0 0 30px rgba(201,162,39,0.5);
+  }
+  .sound-toggle svg { width: 20px; height: 20px; }
+
+  /* === ШАПКА === */
+  header {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 25px 80px; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(28,8,16,0.7); backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: padding 0.4s, background 0.4s, border-color 0.4s;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 2s forwards;
+  }
+  header.scrolled {
+    padding: 15px 80px;
+    background: rgba(28,8,16,0.95);
+    border-bottom-color: var(--line);
+  }
+  .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--text); }
+  .logo-img {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700;
+    border-radius: 50%;
+    transition: transform 0.6s, box-shadow 0.4s;
+    box-shadow: 0 0 20px rgba(201,162,39,0.3);
+  }
+  .logo:hover .logo-img { transform: rotate(360deg); box-shadow: 0 0 40px rgba(201,162,39,0.6); }
+  .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; line-height: 1.2; }
+  .logo-text span { color: var(--gold); display: block; font-size: 11px; letter-spacing: 6px; }
+  nav ul { display: flex; gap: 40px; list-style: none; }
+  nav a {
+    color: var(--text); text-decoration: none;
+    font-size: 13px; letter-spacing: 3px;
+    text-transform: uppercase; transition: color 0.3s;
+    position: relative;
+  }
+  nav a::after {
+    content: ''; position: absolute;
+    bottom: -6px; left: 0; width: 0; height: 1px;
+    background: var(--gold); transition: width 0.4s;
+  }
+  nav a:hover { color: var(--gold); }
+  nav a:hover::after { width: 100%; }
+
+  /* === СЕКЦИИ === */
+  section { padding: 140px 80px; position: relative; }
+  .section-header { margin-bottom: 80px; }
+  .section-label {
+    font-size: 11px; letter-spacing: 8px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 15px;
+  }
+  .section-label::before { content: ''; width: 40px; height: 1px; background: var(--gold); transition: width 0.6s; }
+  .section-header:hover .section-label::before { width: 80px; }
+  .section-header h2 {
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1; margin-bottom: 25px; font-weight: 400;
+  }
+  .section-header h2 em { color: var(--gold); font-style: italic; font-weight: 300; }
+  .section-header .line { width: 60px; height: 1px; background: var(--gold); transition: width 0.6s; }
+  .section-header:hover .line { width: 120px; }
+
+  /* === АНИМАЦИЯ ПОЯВЛЕНИЯ === */
+  .reveal { opacity: 0; transform: translateY(60px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.active { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-80px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal-left.active { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(80px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal-right.active { opacity: 1; transform: translateX(0); }
+
+  /* === КАРТОЧКИ === */
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; }
+  .card {
+    background: linear-gradient(135deg, var(--bg-card), var(--bg));
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s;
+    cursor: pointer; position: relative;
+    border: 1px solid var(--line);
+  }
+  .card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 40px rgba(139,26,43,0.3);
+    border-color: var(--gold);
+  }
+  .card-img {
+    height: 450px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); opacity: 0.3;
+    font-size: 12px; letter-spacing: 4px;
+    position: relative; overflow: hidden;
+    transition: opacity 0.6s;
+  }
+  .card:hover .card-img { opacity: 0.5; }
+  .card-img::before {
+    content: ''; position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201,162,39,0.15), transparent);
+    transition: left 0.8s;
+  }
+  .card:hover .card-img::before { left: 100%; }
+  .card-body { padding: 40px; }
+  .card-date { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .card h3 { font-size: 28px; margin-bottom: 15px; line-height: 1.2; font-weight: 500; transition: color 0.3s; }
+  .card:hover h3 { color: var(--gold); }
+  .card p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+  .card-link {
+    color: var(--gold); text-decoration: none;
+    font-size: 12px; letter-spacing: 3px;
+    text-transform: uppercase; font-weight: 500;
+    position: relative;
+  }
+  .card-link::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; width: 0; height: 1px;
+    background: var(--gold); transition: width 0.3s;
+  }
+  .card-link:hover::after { width: 100%; }
+
+  /* === О ТЕАТРЕ === */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; max-width: 1400px; margin: 0 auto; }
+  .about-img {
+    height: 600px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); opacity: 0.3;
+    font-size: 12px; letter-spacing: 4px;
+    border: 1px solid var(--line);
+    transition: opacity 0.6s, box-shadow 0.6s;
+  }
+  .about-img:hover { opacity: 0.5; box-shadow: 0 0 60px rgba(139,26,43,0.2); }
+  .about-text h2 { font-size: clamp(36px, 4vw, 56px); line-height: 1.1; margin-bottom: 35px; font-weight: 400; }
+  .about-text h2 em { color: var(--gold); font-style: italic; font-weight: 300; }
+  .about-text p { color: var(--text-muted); margin-bottom: 22px; font-size: 16px; line-height: 1.9; }
+  .about-stats { display: flex; gap: 60px; margin-top: 50px; padding-top: 40px; border-top: 1px solid var(--line); }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1; font-weight: 500;
+  }
+  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 10px; }
+
+  /* === ГАСТРОЛИ === */
+  .tours {
+    text-align: center; padding: 120px 80px;
+    background: linear-gradient(135deg, var(--bg-soft), var(--bg));
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .tours h2 { font-size: clamp(32px, 4vw, 56px); margin-bottom: 60px; font-weight: 400; }
+  .tours h2 em { color: var(--gold); font-style: italic; font-weight: 300; }
+  .countries { display: flex; justify-content: center; flex-wrap: wrap; gap: 60px; max-width: 1000px; margin: 0 auto; }
+  .country {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; letter-spacing: 4px;
+    color: var(--text-muted);
+    transition: all 0.4s;
+    text-transform: uppercase;
+    cursor: pointer; position: relative;
+  }
+  .country::after {
+    content: ''; position: absolute;
+    bottom: -10px; left: 50%;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: all 0.4s;
+    transform: translateX(-50%);
+  }
+  .country:hover {
+    color: var(--gold);
+    letter-spacing: 8px;
+    text-shadow: 0 0 30px rgba(201,162,39,0.5);
+  }
+  .country:hover::after { width: 60px; }
+
+  /* === АРТИСТЫ === */
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; }
+  .artist-card { text-align: center; cursor: pointer; }
+  .artist-photo {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg));
+    margin-bottom: 25px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); opacity: 0.2;
+    font-size: 11px; letter-spacing: 4px;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid transparent;
+    filter: grayscale(100%);
+  }
+  .artist-card:hover .artist-photo {
+    border-color: var(--gold);
+    filter: grayscale(0%);
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(139,26,43,0.3);
+  }
+  .artist-card h3 { font-size: 24px; margin-bottom: 8px; font-weight: 500; transition: color 0.3s; }
+  .artist-card:hover h3 { color: var(--gold); }
+  .artist-card p { color: var(--gold); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
+
+  /* === ПОДВАЛ === */
+  footer {
+    background: linear-gradient(135deg, #15060C, #1C0810);
+    padding: 100px 80px 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; max-width: 1400px; margin-left: auto; margin-right: auto; }
+  .footer-grid h4 { font-family: 'Cormorant Garamond', serif; font-size: 18px; margin-bottom: 30px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+  .footer-grid ul { list-style: none; }
+  .footer-grid li { margin-bottom: 15px; }
+  .footer-grid a { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-grid a:hover { color: var(--gold); }
+  .footer-bottom { text-align: center; padding-top: 40px; border-top: 1px solid var(--line); color: var(--text-muted); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* === АДАПТИВ === */
+  @media (max-width: 768px) {
+    header { padding: 20px; flex-direction: column; gap: 20px; }
+    header.scrolled { padding: 15px 20px; }
+    nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+    section { padding: 80px 20px; }
+    .video-intro-content { padding: 0 20px; }
+    .sound-toggle { bottom: 20px; right: 20px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-stats { flex-direction: column; gap: 30px; }
+    .countries { gap: 30px; }
+    .country { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ВИДЕО-ОТКРЫТИЕ -->
+  <section class="video-intro">
+    <video autoplay muted loop playsinline id="introVideo">
+      <source src="https://videos.pexels.com/video-files/3130284/3130284-uhd_2560_1440_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="video-intro-overlay"></div>
+    <div class="video-intro-content">
+      <div class="video-intro-label">Саха академический театр им. П. А. Ойунского</div>
+      <h1 id="introTitle">Искусство,<br>рождённое <em>Севером</em></h1>
+      <p class="video-intro-desc">Театр мирового уровня. Гастроли во Франции, Китае, Японии</p>
+    </div>
+    <div class="video-intro-scroll">Листайте вниз</div>
+  </section>
+
+  <!-- КНОПКА ЗВУКА -->
+  <button class="sound-toggle" id="soundToggle" title="Включить звук">
+    <svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+  </button>
+
+  <header id="header">
+    <a href="#" class="logo">
+      <div class="logo-img">СТ</div>
+      <div class="logo-text">Саха<span>театр</span></div>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#afisha">Афиша</a></li>
+        <li><a href="#about">Театр</a></li>
+        <li><a href="#artists">Люди</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="afisha">
+    <div class="section-header reveal">
+      <div class="section-label">Ближайшие события</div>
+      <h2>Афиша <em>театра</em></h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal"><div class="card-img">ПОСТЕР</div><div class="card-body"><div class="card-date">15 октября · 19:00</div><h3>Наара Суох</h3><p>Трагикомедия по мотивам якутского эпоса</p><a href="#" class="card-link">Купить билет</a></div></div>
+      <div class="card reveal"><div class="card-img">ПОСТЕР</div><div class="card-body"><div class="card-date">18 октября · 18:30</div><h3>Три мушкетёра</h3><p>Приключенческая драма по роману А. Дюма</p><a href="#" class="card-link">Купить билет</a></div></div>
+      <div class="card reveal"><div class="card-img">ПОСТЕР</div><div class="card-body"><div class="card-date">22 октября · 19:00</div><h3>Ревизор</h3><p>Комедия Н. В. Гоголя в новой интерпретации</p><a href="#" class="card-link">Купить билет</a></div></div>
+    </div>
+  </section>
+
+  <section id="about" style="background: var(--bg-soft);">
+    <div class="about">
+      <div class="about-img reveal-left">ФОТО ТЕАТРА</div>
+      <div class="about-text reveal-right">
+        <div class="section-label">О театре</div>
+        <h2>Театр, известный <em>миру</em></h2>
+        <p>Саха академический театр имени П. А. Ойунского — один из старейших и самых значимых театров Якутии.</p>
+        <p>Театр гастролировал во Франции, Китае, Японии и других странах, представляя культуру народа Саха на мировой сцене.</p>
+        <div class="about-stats">
+          <div><div class="stat-num" data-target="100">0</div><div class="stat-label">Лет истории</div></div>
+          <div><div class="stat-num" data-target="20">0</div><div class="stat-label">Стран гастролей</div></div>
+          <div><div class="stat-num" data-target="72">0</div><div class="stat-label">Артиста</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tours">
+    <div class="section-label reveal" style="justify-content: center;">Мировые гастроли</div>
+    <h2 class="reveal">Театр, который <em>знают</em> в мире</h2>
+    <div class="countries">
+      <div class="country reveal">Франция</div>
+      <div class="country reveal">Китай</div>
+      <div class="country reveal">Япония</div>
+      <div class="country reveal">Корея</div>
+      <div class="country reveal">Германия</div>
+      <div class="country reveal">США</div>
+    </div>
+  </section>
+
+  <section id="artists">
+    <div class="section-header reveal">
+      <div class="section-label">Труппа</div>
+      <h2>Люди <em>театра</em></h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid-4">
+      <div class="artist-card reveal"><div class="artist-photo">ФОТО</div><h3>Пётр Макаров</h3><p>Директор</p></div>
+      <div class="artist-card reveal"><div class="artist-photo">ФОТО</div><h3>Михаил Егоров</h3><p>Художник</p></div>
+      <div class="artist-card reveal"><div class="artist-photo">ФОТО</div><h3>Сергей Потапов</h3><p>Режиссёр</p></div>
+      <div class="artist-card reveal"><div class="artist-photo">ФОТО</div><h3>Айталина Цыпандина</h3><p>Актриса</p></div>
+    </div>
+  </section>
+
+  <footer id="contacts">
+    <div class="footer-grid">
+      <div class="reveal"><h4>Сахатеатр</h4><p style="color: var(--text-muted); font-size: 14px;">Саха академический театр имени П. А. Ойунского</p></div>
+      <div class="reveal"><h4>Разделы</h4><ul><li><a href="#afisha">Афиша</a></li><li><a href="#about">Театр</a></li><li><a href="#artists">Люди</a></li></ul></div>
+      <div class="reveal"><h4>Контакты</h4><ul><li><a href="tel:+74112341331">+7 (4112) 34-13-31</a></li><li><a href="mailto:sat@gov14.ru">sat@gov14.ru</a></li><li>г. Якутск, ул. Орджоникидзе, 1</li></ul></div>
+      <div class="reveal"><h4>Билеты</h4><ul><li><a href="#">intickets.ru →</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">© 2025–2026 ООО «Саха театр»</div>
+  </footer>
+
+<script>
+  // === АНИМАЦИЯ БУКВ В ЗАГОЛОВКЕ ===
+  const introTitle = document.getElementById('introTitle');
+  if (introTitle) {
+    const html = introTitle.innerHTML;
+    introTitle.innerHTML = html.replace(/([А-Яа-яA-Za-z])/g, '<span class="letter">$1</span>');
+    document.querySelectorAll('#introTitle .letter').forEach((letter, index) => {
+      letter.style.animationDelay = (1.8 + index * 0.05) + 's';
+    });
+  }
+
+  // === КНОПКА ЗВУКА ===
+  const soundToggle = document.getElementById('soundToggle');
+  const introVideo = document.getElementById('introVideo');
+  const soundIcon = document.getElementById('soundIcon');
+  let soundOn = false;
+
+  soundToggle.addEventListener('click', () => {
+    soundOn = !soundOn;
+    introVideo.muted = !soundOn;
+    if (soundOn) {
+      introVideo.play();
+      soundIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+      soundToggle.title = 'Выключить звук';
+    } else {
+      soundIcon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+      soundToggle.title = 'Включить звук';
+    }
+  });
+
+  // === ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ===
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('active');
+        }, index * 100);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // === СЧЁТЧИК ЦИФР ===
+  const statNums = document.querySelectorAll('.stat-num');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 60;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            el.textContent = target + '+';
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current);
+          }
+        }, 25);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNums.forEach(el => statObserver.observe(el));
+
+  // === ШАПКА ПРИ СКРОЛЛЕ ===
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+
+</body>
+</html>

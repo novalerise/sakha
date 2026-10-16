@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Саха академический театр им. П.А. Ойунского - Якутск</title>
+<meta name="description" content="Главный театр Республики Саха (Якутия). Спектакли на языке саха. Афиша, билеты, труппа. Якутск, ул. Орджоникидзе, 1.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ ПРЕЛОАДЕР ============ -->
+<div class="preloader" id="preloader">
+  <img src="img/gerb.png" alt="Герб Саха Театра" class="preloader-gerb">
+</div>
+
+<!-- ============ ШАПКА ============ -->
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="img/gerb.png" alt="Герб" class="logo-gerb">
+      <span class="logo-text">
+        Саха <em>Театр</em>
+        <small>им. П.А. Ойунского</small>
+      </span>
+    </a>
+
+    <nav>
+      <ul class="main-nav">
+        <li><a href="index.html" class="active">Главная</a></li>
+        <li><a href="afisha.html">Афиша</a></li>
+        <li><a href="spektakli.html">Спектакли</a></li>
+        <li><a href="truppa.html">Труппа</a></li>
+        <li><a href="o-teatre.html">О театре</a></li>
+        <li><a href="galereya.html">Галерея</a></li>
+        <li><a href="novosti.html">Новости</a></li>
+        <li><a href="kontakty.html">Контакты</a></li>
+      </ul>
+    </nav>
+
+    <!-- Кнопка ведёт на НАШУ афишу -->
+    <a href="afisha.html" class="btn-ticket">Купить билет</a>
+
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="img/hero-poster.jpg">
+    <source src="video/hero.mp4" type="video/mp4">
+  </video>
+
+  <!-- Большой дышащий герб за текстом -->
+  <img src="img/gerb.png" alt="" class="hero-gerb">
+
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content">
+    <div class="caps">Якутск · с 1906 года</div>
+    <h1>Саха <em>Театр</em></h1>
+    <div class="divider"></div>
+    <p class="subtitle">
+      Главный театр Республики Саха. Спектакли на языке саха -
+      от эпических сказаний олонхо до современной драмы.
+    </p>
+    <div class="hero-actions">
+      <a href="afisha.html" class="btn-primary">Купить билет</a>
+      <a href="#afisha" class="btn-ghost">Афиша</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Прокрутите</div>
+</section>
+
+<!-- ============ О ТЕАТРЕ ============ -->
+<section class="about">
+  <div class="container about-grid">
+
+    <!-- Фото слева -->
+    <div class="about-photo">
+      <img src="img/about/theatre.png" alt="Саха академический театр">
+      <div class="about-caption">г. Якутск · ул. Орджоникидзе, 1</div>
+    </div>
+
+    <!-- Правая колонка: заголовок + текст + счётчики -->
+    <div class="about-content">
+      <div class="caps">О театре</div>
+      <h2>Голос народа <em>саха</em> на сцене</h2>
+
+      <div class="about-text">
+        <p>
+          Саха академический театр им. П.А. Ойунского - старейший
+          и главный театр Республики Саха (Якутия). Основан в 1925
+          году как национальная театральная студия. С 1934 года
+          носит имя Платона Ойунского - основоположника якутской
+          литературы.
+        </p>
+        <p>
+          Сегодня в репертуаре театра - более сорока спектаклей на
+          языке саха: от классических олонхо до современной
+          драматургии. Театр гастролирует по России и за рубежом,
+          представляя якутскую культуру на мировой сцене.
+        </p>
+      </div>
+
+      <!-- Счётчики 2×2 под текстом -->
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num" data-count="120">0</div>
+          <div class="stat-label">лет истории</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="150">0</div>
+          <div class="stat-label">спектаклей</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="72">0</div>
+          <div class="stat-label">артистов</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" data-count="150">0</div>
+          <div class="stat-label">наград</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ АФИША ============ -->
+<section class="afisha" id="afisha">
+  <div class="container">
+    <div class="section-head">
+      <div class="caps">Афиша</div>
+      <h2>Ближайшие <em>выступления</em></h2>
+      <div class="rule"><span class="diamond">◆</span></div>
+    </div>
+
+    <div class="afisha-grid" id="afisha-grid">
+      <!-- карточки рендерятся из js/data.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA — полный перелив ============ -->
+<section class="cta">
+  <div class="container">
+    <div class="caps">Билеты</div>
+    <h2>Приходите <em>в театр</em></h2>
+    <div class="rule"><span class="diamond">◆</span></div>
+    <p>
+      Выберите спектакль в афише - и оформите билеты
+      на удобный для вас день.
+    </p>
+    <a href="afisha.html" class="btn-primary">Перейти в афишу</a>
+  </div>
+</section>
+
+<!-- ============ ФУТЕР ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="img/gerb.png" alt="Герб" class="footer-gerb">
+          <span class="footer-logo-text">
+            Саха <em>Театр</em>
+            <small>им. П.А. Ойунского</small>
+          </span>
+        </div>
+        <p>
+          Главный театр Республики Саха (Якутия).
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <a href="afisha.html">Афиша</a>
+        <a href="spektakli.html">Спектакли</a>
+        <a href="truppa.html">Труппа</a>
+        <a href="novosti.html">Новости</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p>677000, г. Якутск,<br>ул. Орджоникидзе, д. 1</p>
+        <a href="tel:+74112430000">+7 (4112) 43-00-00</a>
+        <a href="mailto:info@sakhatheatre.ru">info@sakhatheatre.ru</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Билеты</h4>
+        <p>Выберите спектакль в афише - покупка откроется на странице постановки.</p>
+        <a href="afisha.html" style="margin-top: 12px; color: var(--brass);">Перейти в афишу →</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 1906-2026 Саха академический театр им. П.А. Ойунского</div>
+      <div>Все права защищены</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
